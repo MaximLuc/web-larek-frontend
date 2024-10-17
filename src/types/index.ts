@@ -97,3 +97,21 @@ export interface IOrderFormPopup extends IPopup {
     setOrderData(order: IOrder): void;      // Устанавливает данные заказа в попап
 }
 
+export interface IAppState {
+    catalog: IProduct[];
+    basket: string[];
+    preview: string | null;
+    order: IOrder | null;
+    loading: boolean;
+}
+
+export interface IOrderForm {
+    email: string;
+    phone: string;
+}
+
+export interface IOrder extends IOrderForm {
+    items: string[]
+}
+
+export type FormErrors = Partial<Record<keyof IOrder, string>>;

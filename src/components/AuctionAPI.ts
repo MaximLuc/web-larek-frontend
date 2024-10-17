@@ -1,10 +1,11 @@
 import { Api, ApiListResponse } from './base/api';
 import {IProduct, IOrder} from "../types/index";
+import { Product } from './AppData';
 
 
 export interface IAuctionAPI {
-    getProductList: () => Promise<IProduct[]>;
-    getProductItem: (id: string) => Promise<IProduct>;
+    getProductList: () => Promise<Product[]>;
+    getProductItem: (id: string) => Promise<Product>;
     postOrder: (id: string, order: IOrder) => Promise<string>;
 }
 
@@ -16,20 +17,24 @@ export class AuctionAPI extends Api implements IAuctionAPI {
         this.cdn = cdn;
     }
 
-    getProductItem(productId: string): Promise<IProduct> {
+    getProductItem(productId: string): Promise<Product> {
         return this.get(`/product/${productId}`).then(
-            (item: IProduct) => ({
+            (item: Product) => ({
                 ...item,
                 image: this.cdn + item.image,
+                events: {}, 
+                emitChanges: () => {}, 
             })
         );
     }
 
-    getProductList(): Promise<IProduct[]> {
-        return this.get('/product').then((data: ApiListResponse<IProduct>) =>
+    getProductList(): Promise<Product[]> {
+        return this.get('/product').then((data: ApiListResponse<Product>) =>
             data.items.map((item) => ({
                 ...item,
-                image: this.cdn + item.image
+                image: this.cdn + item.image,
+                events: {}, 
+                emitChanges: () => {}, 
             }))
         );
     }
