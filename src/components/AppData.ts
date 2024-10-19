@@ -82,7 +82,7 @@ export class AppState extends Model<IAppState> {
         console.log('Deleting item:', itemToRemove);
         this.basket = this.basket.filter(item => item.id != itemToRemove.id);
         console.log(this.basket)
-        
+
     }
 
     // addBasketCard(item:Product, cardBasketTemplate:HTMLTemplateElement){
@@ -97,14 +97,23 @@ export class AppState extends Model<IAppState> {
     // }
 
     addBasketCard(item: Product, cardBasketTemplate: HTMLTemplateElement) {
-        const basketCard = new CardBasket(cloneTemplate(cardBasketTemplate), {
-            onClick: () => {
-                this.emitChanges('items:delete', basketCard);
-            }
-        });
+        
+        const index = this.basket.findIndex(itemBasket => itemBasket.getProductId() === item.id);
     
-        this.basket.push(basketCard);
-        this.basket[this.basket.length - 1].setProductData(item);
+        if (index !== -1) {
+            return false
+        } else {
+            const basketCard = new CardBasket(cloneTemplate(cardBasketTemplate), {
+                onClick: () => {
+                    this.emitChanges('items:delete', basketCard);
+                }
+            });
+
+            this.basket.push(basketCard);
+            this.basket[this.basket.length - 1].setProductData(item);
+            return true;
+        }
+       
     }
 
     getTotal() {

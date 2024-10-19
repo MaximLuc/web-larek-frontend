@@ -96,8 +96,10 @@ events.on('preview:changed', (item: Product) => {
     const showItem = (item:Product)=>{
         const card = new ProductPreview(cloneTemplate(cardPreviewTemplate),{
             onSubmit:()=> {
-                appData.addBasketCard(item,cardBasketTemplate)
-                page.incrementCounter()
+                const added:boolean = appData.addBasketCard(item,cardBasketTemplate)
+                if(added){
+                    page.incrementCounter()
+                }
             },
         });
         card.setProductData({

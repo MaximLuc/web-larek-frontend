@@ -12,7 +12,7 @@ interface ICardBasketActions {
 }
 
 export class CardBasket extends Component<ICardBasket>{
-
+    protected _productId:string
     protected _index:HTMLElement;
     protected _title:HTMLElement;
     protected _price:HTMLElement;
@@ -38,6 +38,7 @@ export class CardBasket extends Component<ICardBasket>{
         }
     }
     setProductData(product: IProduct) {
+        this._productId = product.id
         this._index.textContent = this.id.toString() 
         this._title.textContent = product.title;
         this._price.textContent = `${product.price} синапсов`;
@@ -47,6 +48,10 @@ export class CardBasket extends Component<ICardBasket>{
     }
     getIndex(){
         return this._index.textContent
+    }
+
+    getProductId(){
+        return this._productId 
     }
 }
 
