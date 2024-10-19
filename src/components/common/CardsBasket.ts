@@ -18,11 +18,11 @@ export class CardBasket extends Component<ICardBasket>{
     protected _price:HTMLElement;
     protected _button: HTMLButtonElement;
     id: number =0;
-    static idCounter: number = 0;
+    // static idCounter: number = 0;
 
     constructor(container: HTMLElement, actions?: ICardBasketActions) {
         super(container);
-        this.id = ++CardBasket.idCounter;
+        // this.id = ++CardBasket.idCounter;
         this._title = container.querySelector('.card__title')
         this._button = container.querySelector(`.basket__item-delete`);
         this._price = container.querySelector(`.card__price`);
@@ -52,6 +52,14 @@ export class CardBasket extends Component<ICardBasket>{
 
     getProductId(){
         return this._productId 
+    }
+    setId(id:number){
+        this.id = id;
+        this._index.textContent = this.id.toString() 
+    }
+
+    getPrice() {
+        return parseInt(this._price.textContent || '0'); 
     }
 }
 

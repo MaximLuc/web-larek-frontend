@@ -18,13 +18,16 @@ export interface ICart {
     total: number; 
 }
 
-export interface IOrder {
+export interface IOrderForm {
     payment: string;
     email: string;
     phone: string;
     address: string;
     total: number;
-    items: string[]; 
+}
+
+export interface IOrder extends IOrderForm {
+    items: string[]
 }
 
 export interface IProductStore {

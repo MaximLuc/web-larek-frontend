@@ -111,13 +111,19 @@ export class AppState extends Model<IAppState> {
 
             this.basket.push(basketCard);
             this.basket[this.basket.length - 1].setProductData(item);
+            this.setIdCartItem()
             return true;
         }
-       
+    }
+
+    setIdCartItem(){
+        this.basket.forEach((item, index) => {
+            item.setId(index + 1)
+        })
     }
 
     getTotal() {
-        return this.order.items.reduce((a, c) => a + this.catalog.find(it => it.id === c).price, 0)
+        return this.basket.reduce((total, item) => total + item.getPrice(), 0);
     }
 
     setCatalog(items: IProduct[]) {

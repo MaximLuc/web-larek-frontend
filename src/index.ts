@@ -12,6 +12,7 @@ import { Modal } from './components/common/Modal';
 import { Basket } from './components/common/Basket';
 import { CardBasket } from './components/common/CardsBasket';
 import { Model } from './components/base/Model';
+import { Order } from './components/Order';
 
 const api = new AuctionAPI(CDN_URL, API_URL);
 const events = new EventEmitter();
@@ -33,11 +34,9 @@ const page = new Page(document.body,events)
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const appData = new AppState({}, events);
 
-
+const order = new Order(cloneTemplate(orderTemplate),events)
 const basket = new Basket(cloneTemplate(basketTemplate), events);
-// const card_basket = new CardBasket(cloneTemplate(cardBasketTemplate),{onClick:()=>{
-//     console.log('card basket click');
-// }})
+
 events.on<CatalogChangeEvent>('items:changed', () => {
     console.log(appData.catalog)
     page.catalog = appData.catalog.map(item => {
@@ -59,14 +58,23 @@ events.on<CatalogChangeEvent>('items:changed', () => {
     
 });
 
-
+events.on('order:open', () => {
+    modal.render({
+        content: order.render({
+            address: '',
+            valid: false, 
+            errors: []    
+        })
+    });
+});
 
 events.on('basket:open', () => {
     modal.render({
         content:
 
             basket.render({
-                items:appData.basket.map(item =>item.getContainer())
+                items:appData.basket.map(item =>item.getContainer()),
+                total:appData.getTotal()
             })
 
     });
@@ -75,6 +83,7 @@ events.on('basket:open', () => {
 events.on("items:delete",(item:CardBasket)=>{
     if (item && item.id !== undefined) {
         appData.deleteItemBasket(item);
+        appData.setIdCartItem();
         page.dicrementCounter();
     } else {
         console.error('Item is undefined or does not have an id:', item);
