@@ -17,7 +17,7 @@ export class CardBasket extends Component<ICardBasket>{
     protected _title:HTMLElement;
     protected _price:HTMLElement;
     protected _button: HTMLButtonElement;
-    id: number;
+    id: number =0;
     static idCounter: number = 0;
 
     constructor(container: HTMLElement, actions?: ICardBasketActions) {
@@ -44,6 +44,9 @@ export class CardBasket extends Component<ICardBasket>{
     }
     getContainer(){
         return this.container; 
+    }
+    getIndex(){
+        return this._index.textContent
     }
 }
 

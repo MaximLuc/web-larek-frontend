@@ -62,7 +62,6 @@ events.on<CatalogChangeEvent>('items:changed', () => {
 
 
 events.on('basket:open', () => {
-    console.log('open basket')
     modal.render({
         content:
 
@@ -72,6 +71,16 @@ events.on('basket:open', () => {
 
     });
 });
+
+events.on("items:delete",(item:CardBasket)=>{
+    if (item && item.id !== undefined) {
+        appData.deleteItemBasket(item);
+        page.dicrementCounter();
+    } else {
+        console.error('Item is undefined or does not have an id:', item);
+    }
+    events.emit('basket:open');
+})
 
 events.on('card:select', (item: Product) => {
     appData.setPreview(item);

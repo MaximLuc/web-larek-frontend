@@ -51,5 +51,8 @@ export class Page extends Component<IPage> {
     incrementCounter() {
         this.counter = this.counter + 1; 
     }
+    dicrementCounter(){
+        this.counter = this.counter - 1;
+    }
 
 }
