@@ -1,11 +1,15 @@
 import {FormErrors, IAppState, ICartItem, IOrder, IProduct, IProductStore} from '../types/index'
+import { cloneTemplate } from '../utils/utils';
 import { AuctionAPI} from './AuctionAPI'
 import { Model } from './base/Model';
 import {Card} from './common/Card'
+import { CardBasket } from './common/CardsBasket';
 
-import _ from "lodash";
 
 
+export type CatalogChangeEvent = {
+    catalog: Product[]
+};
 
 export class Product extends Model<IProduct> {
     id: string;
@@ -56,7 +60,7 @@ export class ProductStore implements IProductStore {
 }
 
 export class AppState extends Model<IAppState> {
-    basket: string[];
+    basket: CardBasket[] =[];
     catalog: IProduct[];
     loading: boolean;
     order: IOrder = {
@@ -74,16 +78,27 @@ export class AppState extends Model<IAppState> {
 
     }
 
+    addBasketCard(item:Product, cardBasketTemplate:HTMLTemplateElement){
+        this.basket.push(
+            new CardBasket(cloneTemplate(cardBasketTemplate),{onClick:()=>{
+                console.log('card basket click');
+            }})
+        )
+        this.basket[this.basket.length -1].setProductData(item)
+        console.log(this.basket)
+    }
+
     getTotal() {
         return this.order.items.reduce((a, c) => a + this.catalog.find(it => it.id === c).price, 0)
     }
 
-    setCatalog(items: Product[]) {
-        this.catalog = items.map(item => new Product(item, this.events));
+    setCatalog(items: IProduct[]) {
+
+        this.catalog = items.map((item) => new Product(item, this.events));
         this.emitChanges('items:changed', { catalog: this.catalog });
     }
 
-    setPreview(item: LotItem) {
+    setPreview(item: Product) {
         this.preview = item.id;
         this.emitChanges('preview:changed', item);
     }

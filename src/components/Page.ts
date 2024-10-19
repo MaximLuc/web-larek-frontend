@@ -24,7 +24,7 @@ export class Page extends Component<IPage> {
         this._basket = ensureElement<HTMLElement>('.header__basket');
 
         this._basket.addEventListener('click', () => {
-            this.events.emit('bids:open');
+            this.events.emit('basket:open');
         });
     }
 
@@ -43,4 +43,13 @@ export class Page extends Component<IPage> {
             this._wrapper.classList.remove('page__wrapper_locked');
         }
     }
+    get counter(): number {
+        const currentValue = this._counter.textContent?.trim() || '0';
+        return Number(currentValue); 
+    }
+
+    incrementCounter() {
+        this.counter = this.counter + 1; 
+    }
+
 }
