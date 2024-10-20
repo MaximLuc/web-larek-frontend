@@ -1,11 +1,9 @@
+import { IFormState } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Components";
 import { IEvents } from "../base/events";
 
-export interface IFormState {
-    valid: boolean;
-    errors: string[];
-}
+
 
 export class Form<T> extends Component<IFormState> {
     protected _submit: HTMLButtonElement;

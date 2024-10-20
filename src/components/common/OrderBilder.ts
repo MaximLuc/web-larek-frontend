@@ -1,7 +1,7 @@
 import { IOrder } from "../../types";
 
 export class OrderBuilder {
-    private order: Partial<IOrder> = {}; // Частично собранный объект
+    private order: Partial<IOrder> = {}; 
 
     setPayment(payment: string): this {
         this.order.payment = payment;

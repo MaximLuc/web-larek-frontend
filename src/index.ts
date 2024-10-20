@@ -16,7 +16,7 @@ import { Order } from './components/Order';
 import { Contacts } from './components/common/Contacts';
 import { OrderBuilder } from './components/common/OrderBilder';
 import { Success } from './components/common/Success';
-// import { ContactsForm } from './components/common/Form';
+
 
 const api = new AuctionAPI(CDN_URL, API_URL);
 const events = new EventEmitter();
@@ -47,7 +47,7 @@ const success = new Success(cloneTemplate(successTemplate),{onClick:()=>{
     modal.close()
 }});
 
-// const contactsForm: ContactsForm | null = null;
+
 
 events.on<CatalogChangeEvent>('items:changed', () => {
     page.catalog = appData.catalog.map(item => {

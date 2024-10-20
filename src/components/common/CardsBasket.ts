@@ -1,11 +1,8 @@
-import { IProduct } from "../../types";
+import { ICardBasket, IProduct } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Components";
 
-interface ICardBasket{
-    title:string;
-    price:number;
-}
+
 
 interface ICardBasketActions {
     onClick: (event: MouseEvent) => void;
@@ -18,11 +15,9 @@ export class CardBasket extends Component<ICardBasket>{
     protected _price:HTMLElement;
     protected _button: HTMLButtonElement;
     id: number =0;
-    // static idCounter: number = 0;
 
     constructor(container: HTMLElement, actions?: ICardBasketActions) {
         super(container);
-        // this.id = ++CardBasket.idCounter;
         this._title = container.querySelector('.card__title')
         this._button = container.querySelector(`.basket__item-delete`);
         this._price = container.querySelector(`.card__price`);

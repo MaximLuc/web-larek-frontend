@@ -1,12 +1,9 @@
+import { IPage } from "../types";
 import { ensureElement } from "../utils/utils";
 import { Component } from "./base/Components";
 import { IEvents } from "./base/events";
 
-interface IPage {
-    counter: number;
-    catalog: HTMLElement[];
-    locked: boolean;
-}
+
 
 export class Page extends Component<IPage> {
     protected _counter: HTMLElement;

@@ -1,12 +1,10 @@
-import {IProduct, IProductCard} from '../../types/index'
+import {ICardActions, IProduct} from '../../types/index'
 import { ensureElement } from '../../utils/utils';
 import { Component } from '../base/Components';
 import { EventEmitter } from '../base/events';
 import {colorCategory} from '../../utils/constants'
 
-interface ICardActions {
-    onClick: (event: MouseEvent) => void;
-}
+
 
 export class Card extends Component<IProduct>{
     protected _card__category:HTMLElement;

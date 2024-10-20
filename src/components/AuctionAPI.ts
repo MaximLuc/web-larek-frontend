@@ -1,5 +1,6 @@
-import { Api, ApiListResponse } from './base/api';
-import {IProduct, IOrder, IserverResponse} from "../types/index";
+import { Api } from './base/api';
+
+import {IProduct, IOrder, IserverResponse, ApiListResponse} from "../types/index";
 import { Product } from './AppData';
 
 

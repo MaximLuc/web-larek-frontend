@@ -7,16 +7,48 @@ export interface IProduct {
     price: number | null; 
 }
 
+export interface IBasketView {
+    items: HTMLElement[];
+    total: number;
+    selected: string[];
+}
+
+export interface ICardActions {
+    onClick: (event: MouseEvent) => void;
+}
+
+export interface ICardBasket{
+    title:string;
+    price:number;
+}
+
+export interface IContactForm {
+    email: string;
+    phone: string;
+    valid: boolean;
+    errors: string[];
+}
+
+
+export interface IPage {
+    counter: number;
+    catalog: HTMLElement[];
+    locked: boolean;
+}
+export interface IFormState {
+    valid: boolean;
+    errors: string[];
+}
 
 export interface ICartItem {
     product: IProduct;
     quantity: number;
 }
 
-export interface ICart {
-    items: ICartItem[];
-    total: number; 
-}
+export type ApiListResponse<Type> = {
+    total: number,
+    items: Type[]
+};
 
 export interface IOrderForm {
     payment: string;
@@ -39,65 +71,6 @@ export interface IProductStore {
     addProducts(newProducts: IProduct[]): void;
 
     deleteProducts(newProducts: IProduct[]): void;
-}
-
-
-export interface ICartManager {
-    items: ICartItem[];
-               
-
-    getItems(): ICartItem[];
-
-    addItem(product: IProduct, quantity: number): void;
-
-    removeItem(productId: string): void;
-
-    calculateTotal(): number;
-
-    clear(): void;
-}
-
-export interface IOrderManager {
-    orders: IOrder[];                       
-
-    createOrder(payment: string, email: string, phone: string, address: string, items: string[], total: number): IOrder;
-
-    getOrders(): IOrder[];
-}
-
-export interface IBaseComponent {
-    render(): string;                    // Метод для рендеринга HTML-разметки компонента
-    update(data: any): void;             // Метод для обновления компонента с новыми данными
-    show(): void;                        // Метод для отображения компонента
-    hide(): void;                        // Метод для скрытия компонента
-}
-
-export interface IProductCard extends IBaseComponent {
-    setTemplate(template: string): void; // Устанавливает шаблон для карточки товара
-    setProduct(product: IProduct): void; // Принимает данные товара для отображения
-}
-
-export interface IPopup extends IBaseComponent {
-    open(): void;                        // Открытие попапа
-    close(): void;                       // Закрытие попапа
-    setContent(content: string): void;   // Установка контента попапа
-}
-
-export interface IProductPopup extends IPopup {
-    setProduct(product: IProduct): void; // Устанавливает данные товара в попап
-}
-
-export interface ICartPopup extends IPopup {
-    setCart(cart: ICart): void;          // Устанавливает данные корзины в попап
-}
-
-export interface IButton extends IBaseComponent {
-    setLabel(label: string): void;       // Устанавливает текст кнопки
-    setAction(action: () => void): void; // Устанавливает действие, выполняемое при нажатии
-}
-
-export interface IOrderFormPopup extends IPopup {
-    setOrderData(order: IOrder): void;      // Устанавливает данные заказа в попап
 }
 
 export type IserverResponse = {
