@@ -55,4 +55,8 @@ export class Page extends Component<IPage> {
         this.counter = this.counter - 1;
     }
 
+    resetCounter(){
+        this.counter = 0
+    }
+
 }

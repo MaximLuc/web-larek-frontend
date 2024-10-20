@@ -100,6 +100,13 @@ export interface IOrderFormPopup extends IPopup {
     setOrderData(order: IOrder): void;      // Устанавливает данные заказа в попап
 }
 
+export type IserverResponse = {
+    id?:string,
+    total?:number,
+    error?:string
+    
+}
+
 export interface IAppState {
     catalog: IProduct[];
     basket: string[];
@@ -109,6 +116,8 @@ export interface IAppState {
 }
 
 export interface IOrderForm {
+    address:string
+    payment: string;
     email: string;
     phone: string;
 }

@@ -5,39 +5,61 @@ import {ensureElement} from "../utils/utils";
 import { Form, IFormState } from "./common/Form";
 
 export class Order extends Form<IOrderForm> {
-    private paymentMethod: string | null = null;
+    protected paymentMethod: string | null = null;
+
 
     constructor(container: HTMLFormElement, events: IEvents) {
         super(container, events);
-
+        console.log('export class Order extends Form<IOrderForm>  ')
         this.container.querySelectorAll('button[name="card"], button[name="cash"]').forEach((button) => {
             button.addEventListener('click', (e: Event) => {
                 this.onPaymentMethodSelect(e.target as HTMLButtonElement);
             });
         });
 
+
         const addressInput = this.container.elements.namedItem('address') as HTMLInputElement;
         addressInput.addEventListener('input', () => {
             this.validateForm();
         });
+
+
+        this.container.addEventListener('submit', (e: Event) => {
+            e.preventDefault();
+            console.log(this.valid); 
+            if (this.valid) {
+                this.events.emit('order:next'); 
+            }
+        });
+    }
+    getPaymentMethod(){
+        return this.paymentMethod;
     }
 
+    getContainer(){
+        return this.container;
+    }
 
     private validateForm() {
         const address = (this.container.elements.namedItem('address') as HTMLInputElement).value.trim();
         
 
         const isValid = address.length > 0 && this.paymentMethod !== null;
-        this.valid = isValid;
+        this.valid = isValid;  
     }
 
 
     protected onPaymentMethodSelect(button: HTMLButtonElement) {
+
         this.container.querySelectorAll('button[name="card"], button[name="cash"]').forEach((btn) => {
             btn.classList.remove('button_alt-active'); 
         });
+
+    
         button.classList.add('button_alt-active');
         this.paymentMethod = button.name;
+
+
         this.validateForm();
     }
 
@@ -53,3 +75,5 @@ export class Order extends Form<IOrderForm> {
         return this.container;
     }
 }
+
+

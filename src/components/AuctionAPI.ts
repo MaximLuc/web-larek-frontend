@@ -1,12 +1,12 @@
 import { Api, ApiListResponse } from './base/api';
-import {IProduct, IOrder} from "../types/index";
+import {IProduct, IOrder, IserverResponse} from "../types/index";
 import { Product } from './AppData';
 
 
 export interface IAuctionAPI {
     getProductList: () => Promise<Product[]>;
     getProductItem: (id: string) => Promise<Product>;
-    postOrder: (id: string, order: IOrder) => Promise<string>;
+    postOrder: (order: IOrder) => Promise<IserverResponse>;
 }
 
 export class AuctionAPI extends Api implements IAuctionAPI {
@@ -39,10 +39,10 @@ export class AuctionAPI extends Api implements IAuctionAPI {
         );
     }
 
-    postOrder(id: string, order: IOrder): Promise<string> {
+    postOrder(order: IOrder): Promise<IserverResponse> {
         return this.post(`/order`, order).then
-            ((data: { id: string }) => data.id
-        );
+            ((data: { id: string}) => data as IserverResponse
+        )
     }
 
 }

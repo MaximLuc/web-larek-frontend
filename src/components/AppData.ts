@@ -75,26 +75,13 @@ export class AppState extends Model<IAppState> {
     formErrors: FormErrors = {};
 
     clearBasket() {
-
+        this.basket = []
     }
 
     deleteItemBasket(itemToRemove:CardBasket){
-        console.log('Deleting item:', itemToRemove);
         this.basket = this.basket.filter(item => item.id != itemToRemove.id);
-        console.log(this.basket)
 
     }
-
-    // addBasketCard(item:Product, cardBasketTemplate:HTMLTemplateElement){
-    //     this.basket.push(
-    //         new CardBasket(cloneTemplate(cardBasketTemplate),{onClick:()=>{
-    //             console.log('card basket click');
-    //             this.emitChanges('items:delete', {item});
-    //         }})
-    //     )
-    //     this.basket[this.basket.length -1].setProductData(item)
-    //     console.log(this.basket)
-    // }
 
     addBasketCard(item: Product, cardBasketTemplate: HTMLTemplateElement) {
         
@@ -120,6 +107,10 @@ export class AppState extends Model<IAppState> {
         this.basket.forEach((item, index) => {
             item.setId(index + 1)
         })
+    }
+
+    getIdBasketCard(){
+        return this.basket.map(item => item.getProductId())
     }
 
     getTotal() {

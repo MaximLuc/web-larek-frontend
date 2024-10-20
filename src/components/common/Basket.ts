@@ -28,6 +28,7 @@ export class Basket extends Component<IBasketView> {
         }
 
         this.items = [];
+        this.selected = [];
     }
 
     set items(items: HTMLElement[]) {
@@ -38,17 +39,22 @@ export class Basket extends Component<IBasketView> {
                 textContent: 'Корзина пуста'
             }));
         }
+        this.updateButtonState(items.length);
     }
 
     set selected(items: string[]) {
-        if (items.length) {
-            this.setDisabled(this._button, false);
-        } else {
-            this.setDisabled(this._button, true);
-        }
+        this.updateButtonState(items.length);
     }
 
     set total(total: number) {
         this.setText(this._total, `${total} синапсов`);
+    }
+
+    private updateButtonState(hasItems: number) {
+        if (hasItems) {
+            this.setDisabled(this._button, false);
+        } else {
+            this.setDisabled(this._button, true);
+        }
     }
 }
