@@ -4,7 +4,7 @@ export interface IProduct {
     image: string;
     title: string;
     category: string;
-    price: number | null; 
+    price: number | null | string; 
 }
 
 export interface IBasketView {

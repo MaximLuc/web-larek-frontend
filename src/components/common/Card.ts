@@ -50,11 +50,17 @@ export class CatalogItem extends Card {
     render(data?: Partial<IProduct>): HTMLElement {
         Object.assign(this as object, data ?? {});
         this.changeColorCatigory(data.category)
+
         if (data) {
             if (data.category) this.setText(this._card__category, data.category); 
             if (data.title) this.setText(this._card__title, data.title); 
-            if (data.image) this.setImage(this._card__image, data.image, data.description); 
-            if (data.price) this.setText(this._card__price, `${data.price} Синапсов`); 
+            if (data.image) this.setImage(this._card__image, data.image, data.description);
+            if(data.price ===null){
+                this.setText(this._card__price,'Бесценно')
+            }else{
+                if (data.price) this.setText(this._card__price, `${data.price} Синапсов`); 
+            } 
+            
         }
         return this.container;
     }
@@ -99,7 +105,13 @@ export class ProductPreview extends Component<IProduct> {
         this._category.textContent = product.category;
         this._title.textContent = product.title;
         this._text.textContent = product.description;
-        this._price.textContent = `${product.price} синапсов`;
+        if(product.price ==="Бесценно"){
+            this._price.textContent = `${product.price}`;
+            this._button.disabled = true
+        }else{
+            this._price.textContent = `${product.price} синапсов`;
+        }
+
     }
 
     changeColorCatigory(category:string ){

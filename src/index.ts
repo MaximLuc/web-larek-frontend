@@ -183,7 +183,7 @@ events.on('preview:changed', (item: Product) => {
             title: item.title,
             image: item.image,
             description: item.description,
-            price: item.price, 
+            price: item.price || 'Бесценно', 
             category: item.category || 'другое' 
         });
 

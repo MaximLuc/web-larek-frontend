@@ -87,7 +87,7 @@ export class AppState extends Model<IAppState> {
         
         const index = this.basket.findIndex(itemBasket => itemBasket.getProductId() === item.id);
     
-        if (index !== -1) {
+        if (index !== -1 || item.price === null) {
             return false
         } else {
             const basketCard = new CardBasket(cloneTemplate(cardBasketTemplate), {
